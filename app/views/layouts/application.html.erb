@@ -22,8 +22,16 @@
     <%= javascript_importmap_tags %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   </head>
-
   <body>
+  <nav style="background-color: #eee; padding: 1rem;">
+  <a href="/">Home</a> |
+  <a href="/about">About</a> |
+  <a href="/login">Login</a> |
+  <a href="/progress">Progress</a> |
+  <a href="/calculator">Calculator</a> |
+  <a href="/foodlog">Food Log</a>
+</nav>
+<hr>
     <%= yield %>
   </body>
-</html>
+</html> 

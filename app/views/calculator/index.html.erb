@@ -1,0 +1,40 @@
+<h1>BMI & Calorie Goal Calculator</h1>
+
+<%= form_with url: "/calculator", method: "post", local: true, data: { turbo: false } do %>
+  <p>
+    <label>Height (cm):</label><br>
+    <%= number_field_tag :height %>
+  </p>
+
+  <p>
+    <label>Weight (kg):</label><br>
+    <%= number_field_tag :weight %>
+  </p>
+
+  <p>
+    <label>Age:</label><br>
+    <%= number_field_tag :age %>
+  </p>
+
+  <p>
+    <label>Gender:</label><br>
+    <%= select_tag :gender, options_for_select([["Male", "male"], ["Female", "female"]]) %>
+  </p>
+
+  <p>
+    <label>Goal Weight (kg):</label><br>
+    <%= number_field_tag :goal_weight %>
+  </p>
+
+  <p>
+    <label>Time Frame (days):</label><br>
+    <%= number_field_tag :time_frame %>
+  </p>
+
+  <%= submit_tag "Calculate" %>
+<% end %>
+
+<% if @bmi && @recommended_calories %>
+  <h3>Your BMI is: <%= @bmi %></h3>
+  <p>You should consume about <strong><%= @recommended_calories %></strong> calories per day to reach your goal.</p>
+<% end %>
