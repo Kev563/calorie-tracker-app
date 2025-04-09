@@ -1,2 +1,9 @@
 <h1>Progress Page</h1>
 <p>Here you'll see your current calorie intake and goal.</p>
+
+<h1>Your Calorie Progress</h1>
+
+<%= line_chart [
+  { name: "Calories Eaten", data: { "Day 1" => 2100, "Day 2" => 1900, "Day 3" => 1800 } },
+  { name: "Goal Calories", data: { "Day 1" => 1700, "Day 2" => 1700, "Day 3" => 1700 } }
+] %>
