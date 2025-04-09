@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  calories_eaten: 1
+  goal_calories: 1
+  logged_on: 2025-04-09
+
+two:
+  calories_eaten: 1
+  goal_calories: 1
+  logged_on: 2025-04-09

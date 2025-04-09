@@ -1,9 +1,25 @@
 <h1>Progress Page</h1>
 <p>Here you'll see your current calorie intake and goal.</p>
 
-<h1>Your Calorie Progress</h1>
+<h2>Log New Progress</h2>
+<%= form_with model: @progress_log, url: "/progress", local: true do |f| %>
+  <div class="mb-3">
+    <%= f.label :calories_eaten, "Calories Eaten (kcal)" %><br>
+    <%= f.number_field :calories_eaten, class: "form-control" %>
+  </div>
 
+  <div class="mb-3">
+    <%= f.label :goal_calories, "Goal Calories (kcal)" %><br>
+    <%= f.number_field :goal_calories, class: "form-control" %>
+  </div>
+
+  <%= f.submit "Save Progress", class: "btn btn-primary" %>
+<% end %>
+
+<hr>
+
+<h2>Your Calorie Progress</h2>
 <%= line_chart [
-  { name: "Calories Eaten", data: { "Day 1" => 2100, "Day 2" => 1900, "Day 3" => 1800 } },
-  { name: "Goal Calories", data: { "Day 1" => 1700, "Day 2" => 1700, "Day 3" => 1700 } }
+  { name: "Calories Eaten", data: @progress_logs.each_with_index.map { |log, i| ["Day #{i + 1}", log.calories_eaten] }.to_h },
+  { name: "Goal Calories", data: @progress_logs.each_with_index.map { |log, i| ["Day #{i + 1}", log.goal_calories] }.to_h }
 ] %>

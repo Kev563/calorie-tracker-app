@@ -7,3 +7,10 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+10.times do |i|
+  ProgressLog.create!(
+    calories_eaten: rand(1600..2200),
+    goal_calories: 1800,
+    logged_on: Date.today - i
+  )
+end
