@@ -10,12 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_09_165300) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_13_055414) do
+  create_table "foods", force: :cascade do |t|
+    t.string "name"
+    t.integer "calories"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_foods_on_user_id"
+  end
+
   create_table "progress_logs", force: :cascade do |t|
     t.integer "calories_eaten"
     t.integer "goal_calories"
     t.date "logged_on"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_progress_logs_on_user_id"
   end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "password_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "foods", "users"
+  add_foreign_key "progress_logs", "users"
 end

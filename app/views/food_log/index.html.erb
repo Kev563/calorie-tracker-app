@@ -1,2 +1,41 @@
 <h1>Food Log</h1>
-<p>Track what you eat and keep up with your daily calories.</p>
+<p>Track calories from common foods or add your own!</p>
+
+<%= form_with model: @food, url: foodlog_index_path, local: true do |f| %>
+  <div class="mb-3">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :calories, "Calories (kcal)" %>
+    <%= f.number_field :calories, class: "form-control" %>
+  </div>
+
+  <%= f.submit "Add Food", class: "btn btn-success" %>
+<% end %>
+
+<hr>
+
+<h2>Saved Foods</h2>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Calories</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @foods.each do |food| %>
+      <tr>
+        <td><%= food.name %></td>
+        <td><%= food.calories %> kcal</td>
+        <td>
+          <%= link_to "Edit", edit_foodlog_path(food), class: "btn btn-primary btn-sm" %>
+          <%= link_to "Delete", foodlog_path(food), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

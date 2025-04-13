@@ -1,40 +1,45 @@
-<h1>BMI & Calorie Goal Calculator</h1>
+<div class="card shadow-sm p-4 mt-4">
+  <h1 class="text-primary mb-3">BMI & Calorie Goal Calculator</h1>
+  <p class="lead">Use this tool to calculate your BMI and get your daily calorie goal.</p>
 
-<%= form_with url: "/calculator", method: "post", local: true, data: { turbo: false } do %>
-  <p>
-    <label>Height (cm):</label><br>
-    <%= number_field_tag :height %>
-  </p>
+  <%= form_with url: "/calculator", method: "post", local: true, data: { turbo: false } do %>
+    <div class="mb-3">
+      <label>Height (cm):</label>
+      <%= number_field_tag :height, nil, class: "form-control", placeholder: "e.g. 170" %>
+    </div>
 
-  <p>
-    <label>Weight (kg):</label><br>
-    <%= number_field_tag :weight %>
-  </p>
+    <div class="mb-3">
+      <label>Weight (kg):</label>
+      <%= number_field_tag :weight, nil, class: "form-control", placeholder: "e.g. 70" %>
+    </div>
 
-  <p>
-    <label>Age:</label><br>
-    <%= number_field_tag :age %>
-  </p>
+    <div class="mb-3">
+      <label>Age:</label>
+      <%= number_field_tag :age, nil, class: "form-control", placeholder: "e.g. 25" %>
+    </div>
 
-  <p>
-    <label>Gender:</label><br>
-    <%= select_tag :gender, options_for_select([["Male", "male"], ["Female", "female"]]) %>
-  </p>
+    <div class="mb-3">
+      <label>Gender:</label>
+      <%= select_tag :gender, options_for_select([["Male", "male"], ["Female", "female"]]), class: "form-select" %>
+    </div>
 
-  <p>
-    <label>Goal Weight (kg):</label><br>
-    <%= number_field_tag :goal_weight %>
-  </p>
+    <div class="mb-3">
+      <label>Goal Weight (kg):</label>
+      <%= number_field_tag :goal_weight, nil, class: "form-control", placeholder: "e.g. 65" %>
+    </div>
 
-  <p>
-    <label>Time Frame (days):</label><br>
-    <%= number_field_tag :time_frame %>
-  </p>
+    <div class="mb-3">
+      <label>Time Frame (days):</label>
+      <%= number_field_tag :time_frame, nil, class: "form-control", placeholder: "e.g. 60" %>
+    </div>
 
-  <%= submit_tag "Calculate" %>
-<% end %>
+    <%= submit_tag "Calculate", class: "btn btn-success" %>
+  <% end %>
 
-<% if @bmi && @recommended_calories %>
-  <h3>Your BMI is: <%= @bmi %></h3>
-  <p>You should consume about <strong><%= @recommended_calories %></strong> calories per day to reach your goal.</p>
-<% end %>
+  <% if @bmi && @recommended_calories %>
+    <div class="alert alert-info mt-4">
+      <h4>Your BMI is: <strong><%= @bmi %></strong></h4>
+      <p>You should consume about <strong><%= @recommended_calories %></strong> calories per day to reach your goal.</p>
+    </div>
+  <% end %>
+</div>

@@ -9,10 +9,11 @@ class ProgressController < ApplicationController
     if @progress_log.save
       redirect_to progress_path, notice: "Progress added!"
     else
-      redirect_to progress_path, alert: "Please fill in all fields."
+      @progress_logs = ProgressLog.all.order(:created_at) # needed again when rendering
+      flash.now[:alert] = "Please fill in all fields correctly."
+      render :index
     end
-  end
-
+  end  
   private
 
   def progress_log_params

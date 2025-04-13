@@ -1,25 +1,47 @@
-<h1>Progress Page</h1>
-<p>Here you'll see your current calorie intake and goal.</p>
+<div class="card shadow-sm p-4 mt-4">
+  <h1 class="text-success mb-3">Your Progress</h1>
+  <p class="lead">Monitor your daily calories and stay aligned with your goals.</p>
 
-<h2>Log New Progress</h2>
-<%= form_with model: @progress_log, url: "/progress", local: true do |f| %>
-  <div class="mb-3">
-    <%= f.label :calories_eaten, "Calories Eaten (kcal)" %><br>
-    <%= f.number_field :calories_eaten, class: "form-control" %>
+  <hr>
+
+  <h3 class="text-primary mt-4">Log New Progress</h3>
+
+<% if @progress_log.errors.any? %>
+  <div class="alert alert-danger">
+    <h5>There were some issues with your submission:</h5>
+    <ul>
+      <% @progress_log.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
   </div>
-
-  <div class="mb-3">
-    <%= f.label :goal_calories, "Goal Calories (kcal)" %><br>
-    <%= f.number_field :goal_calories, class: "form-control" %>
-  </div>
-
-  <%= f.submit "Save Progress", class: "btn btn-primary" %>
 <% end %>
 
-<hr>
+  <%= form_with model: @progress_log, url: "/progress", local: true do |f| %>
+    <div class="mb-3">
+      <%= f.label :calories_eaten, "Calories Eaten (kcal)", class: "form-label" %>
+      <%= f.number_field :calories_eaten, class: "form-control", placeholder: "e.g. 2200" %>
+    </div>
 
-<h2>Your Calorie Progress</h2>
-<%= line_chart [
-  { name: "Calories Eaten", data: @progress_logs.each_with_index.map { |log, i| ["Day #{i + 1}", log.calories_eaten] }.to_h },
-  { name: "Goal Calories", data: @progress_logs.each_with_index.map { |log, i| ["Day #{i + 1}", log.goal_calories] }.to_h }
-] %>
+    <div class="mb-3">
+      <%= f.label :goal_calories, "Goal Calories (kcal)", class: "form-label" %>
+      <%= f.number_field :goal_calories, class: "form-control", placeholder: "e.g. 1800" %>
+    </div>
+
+    <%= f.submit "Save Progress", class: "btn btn-success" %>
+  <% end %>
+
+  <hr>
+
+  <h3 class="text-primary mt-4">Your Calorie Progress</h3>
+  <% if @progress_logs.any? %>
+    <%= line_chart [
+      { name: "Calories Eaten", data: @progress_logs.each_with_index.map { |log, i| ["Day #{i + 1}", log.calories_eaten] }.to_h },
+      { name: "Goal Calories", data: @progress_logs.each_with_index.map { |log, i| ["Day #{i + 1}", log.goal_calories] }.to_h }
+    ], height: "300px", library: { colors: ["#1e88e5", "#43a047"] } %>
+  <% else %>
+    <div class="alert alert-info mt-3">
+      No progress data yet. Start logging your calories above.
+    </div>
+  <% end %>
+</div>
