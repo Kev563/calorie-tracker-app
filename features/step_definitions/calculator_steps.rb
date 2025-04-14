@@ -1,17 +1,14 @@
-When("I go to the BMI Calculator page") do
-  visit "/calculator"
-end
-
 When("I enter my height, weight, age, gender, goal weight, and time frame") do
-  fill_in "Height", with: 170
-  fill_in "Weight", with: 75
-  fill_in "Age", with: 25
-  choose "Male"
-  fill_in "Goal Weight", with: 68
-  fill_in "Time Frame", with: 30
+  visit "/calculator"
+  fill_in "height", with: 170
+  fill_in "weight", with: 70
+  fill_in "age", with: 25
+  select "Male", from: "gender"
+  fill_in "goal_weight", with: 65
+  fill_in "time_frame", with: 30
 end
 
-When("I click on \"Calculate\"") do
+When('I click on "Calculate"') do
   click_button "Calculate"
 end
 

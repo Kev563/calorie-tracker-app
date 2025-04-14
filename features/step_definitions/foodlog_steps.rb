@@ -1,32 +1,25 @@
-When("I go to the food input page") do
+Given("I am on the food log page") do
   visit "/foodlog"
 end
 
-When("I enter {string} and {string}") do |food, calories|
-  fill_in "Food", with: food
-  fill_in "Calories", with: calories
+When("I fill in the food name and calories") do
+  fill_in "Name", with: "Banana"
+  fill_in "Calories (kcal)", with: 90
 end
 
-When("I click {string}") do |button|
-  click_button button
+When('I click on "Add Food"') do
+  click_button "Add Food"
 end
 
-Then("I should see {string} in my food log") do |entry|
-  expect(page).to have_content(entry)
+Then("I should see the food listed in the table") do
+  expect(page).to have_content("Banana")
+  expect(page).to have_content("90 kcal")
 end
 
-Then("my remaining calories for the day should be updated") do
-  expect(page).to have_content("Calories left")
+When("I click on Delete for that food") do
+  find("tr", text: "Banana").click_link("Delete")
 end
 
-When("I select {string} from suggested foods") do |food|
-  select food, from: "Suggested Foods"
-end
-
-Then("the calorie field should auto-fill with {string}") do |calories|
-  expect(find_field("Calories").value).to eq(calories)
-end
-
-Then("I can add it to my daily log") do
-  click_button "Add"
+Then("I should no longer see the food in the table") do
+  expect(page).not_to have_content("Banana")
 end

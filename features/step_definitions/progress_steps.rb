@@ -1,24 +1,35 @@
-Given("I am logged in") do
-  # Placeholder — implement login logic if needed
+Given("I am on the progress page") do
   visit "/progress"
 end
 
-When("I visit the progress page") do
-  visit "/progress"
+When("I enter {string} for calories eaten") do |calories|
+  fill_in "Calories Eaten (kcal)", with: calories
 end
 
-Then("I should see my current calorie intake") do
-  expect(page).to have_content("Calorie Intake")
+When("I enter {string} for goal calories") do |goal|
+  fill_in "Goal Calories (kcal)", with: goal
 end
 
-Then("I should see my daily calorie goal") do
-  expect(page).to have_content("Daily Goal")
+When("I leave the calories eaten field empty") do
+  fill_in "Calories Eaten (kcal)", with: ""
 end
 
-Then("I should see a visual chart of my progress") do
-  expect(page).to have_selector("canvas, svg, img") # depends on how you implement chart
+When("I leave the goal calories field empty") do
+  fill_in "Goal Calories (kcal)", with: ""
 end
 
-Then("I should see a message that says \"No data yet\"") do
-  expect(page).to have_content("No data yet")
+When("I click {string}") do |button|
+  click_button button
+end
+
+Then("I should see a success message") do
+  expect(page).to have_content("Progress added!")
+end
+
+Then("I should see an error message") do
+  expect(page).to have_content("Please fill in all fields")
+end
+
+Then("I should see my progress chart updated") do
+  expect(page).to have_css(".chart") # adjust selector if needed
 end
