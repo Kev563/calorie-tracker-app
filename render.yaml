@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: calorie-tracker-app
+    env: ruby
+    plan: free
+    buildCommand: "bundle install && bundle exec rake db:migrate"
+    startCommand: "bundle exec rails server -p 3000"
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: RAILS_ENV
+        value: production
+      - key: SECRET_KEY_BASE
+        sync: false
